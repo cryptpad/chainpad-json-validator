@@ -1,5 +1,5 @@
 define([
-    '/bower_components/chainpad.dist.js'
+    '/bower_components/chainpad/chainpad.dist.js'
 ], function () {
     var ChainPad = window.ChainPad;
     var JsonOT = {};
