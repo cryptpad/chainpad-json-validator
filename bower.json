@@ -14,7 +14,7 @@
   "license": "AGPLv3.0",
   "homepage": "https://github.com/xwiki-labs/chainpad-json-validator#chainpad-json-validator",
   "dependencies": {
-    "chainpad": "^0.3.0"
+    "chainpad": "^0.4.0"
   },
   "ignore": [
     "**/.*",
