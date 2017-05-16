@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var OT = require("./transform");
+var JsonOT = require("./json-ot");
 var TextPatcher = require("textpatcher");
 require("chainpad/chainpad.dist");
 var Sortify = require("json.sortify");
@@ -961,6 +962,42 @@ assert(function (E) {
         ['P', {}, ["pewpew"]]
     ]
 );
+
+assert(function () {
+    var s_O = '["BODY",{},["P",{},["pewpew pezpew"]]]';
+
+    var toTransform = { type: "Operation", offset: 27, toRemove: 0, toInsert: "pew" };
+    var transformBy = { type: "Operation", offset: 33, toRemove: 1, toInsert: 'z' };
+
+    var d_C = JsonOT.transform(s_O, toTransform, transformBy);
+
+    var s_A = ChainPad.Operation.apply(toTransform, s_O);
+    var s_B = ChainPad.Operation.apply(transformBy, s_O);
+
+    var temp = ChainPad.Operation.apply(d_C, s_A);
+
+    var expected = '["BODY",{},["P",{},["pewpewpew pezpez"]]]';
+
+    return temp === expected;
+}, "failed ot with 2 operations in the same text node");
+
+assert(function () {
+    var s_O = '["BODY",{},["P",{},["pewpew pezpew end"]]]';
+
+    var toTransform = { type: "Operation", offset: 27, toRemove: 0, toInsert: "pew" };
+    var transformBy = { type: "Operation", offset: 26, toRemove: 8, toInsert: ' pezpez","' };
+
+    var d_C = JsonOT.transform(s_O, toTransform, transformBy);
+
+    var s_A = ChainPad.Operation.apply(toTransform, s_O);
+    var s_B = ChainPad.Operation.apply(transformBy, s_O);
+
+    var temp = ChainPad.Operation.apply(d_C, s_A);
+
+    var expected = '["BODY",{},["P",{},["pewpewpew pezpez"," end"]]]';
+
+    return temp === expected;
+}, "failed ot with concurrent operations in the same text node");
 
 runASSERTS();
 
