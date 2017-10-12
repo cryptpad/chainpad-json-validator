@@ -1,6 +1,6 @@
 {
   "name": "json-ot",
-  "version": "0.0.0",
+  "version": "0.2.3",
   "description": "``` var O = { x: 5, }; var A = { x: 7, }; var B = { x: 5, y: 9, };",
   "main": "json-ot.js",
   "scripts": {

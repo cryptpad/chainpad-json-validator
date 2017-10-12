@@ -229,6 +229,27 @@ var main = function (OT, TextPatcher, Sortify) {
         }
     };
 
+    var patchTransformer = JsonOT.patchTransformer = function (s_orig, s_toTransform, s_transformBy) {
+        var orig = JSON.parse(s_orig);
+        var ttf = JSON.parse(s_toTransform);
+        var tfb = JSON.parse(s_transformBy);
+
+        try {
+            var diffTTF = OT.diff(orig, ttf);
+            var diffTFB = OT.diff(O, B);
+            var newDiffTTF = OT.resolve(diffTFB, diffTTF, arbiter);
+
+            // mutates orig
+            OT.patch(orig, diffTFB);
+            OT.patch(orig, diffTTF);
+
+            return Sortify(orig);
+        } catch (err) {
+            console.error(err); // FIXME Path did not exist...
+        }
+        return null;
+    };
+
     return JsonOT;
 };
 
