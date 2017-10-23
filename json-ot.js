@@ -236,7 +236,7 @@ var main = function (OT, TextPatcher, Sortify) {
 
         try {
             var diffTTF = OT.diff(orig, ttf);
-            var diffTFB = OT.diff(orig, B);
+            var diffTFB = OT.diff(orig, tfb);
             var newDiffTTF = OT.resolve(diffTFB, diffTTF, arbiter);
 
             // mutates orig
