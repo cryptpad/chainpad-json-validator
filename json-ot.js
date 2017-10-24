@@ -229,7 +229,7 @@ var main = function (OT, TextPatcher, Sortify) {
         }
     };
 
-    var patchTransformer = JsonOT.patchTransformer = function (s_orig, s_toTransform, s_transformBy) {
+    var patchTransformer = JsonOT.patchTransformer = function (s_toTransform, s_transformBy, s_orig) {
         var orig = JSON.parse(s_orig);
         var ttf = JSON.parse(s_toTransform);
         var tfb = JSON.parse(s_transformBy);
